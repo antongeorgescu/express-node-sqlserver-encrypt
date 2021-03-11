@@ -7,9 +7,8 @@
 ## Database Encryption Configurations
 
 ### Create CustomerData database
-For the purpose of this project we are going to create a test database, which we will call StudentLoans. There are two sql scripts in the project, under **database** folder:
-* createDatabase.sql
-* populateDatabase.sql
+For the purpose of this project we are going to create a test database, which we will call StudentLoans. There are one sql scripts in the project, under **database** folder calles **createStudentLoansDb.sql**
+Run the script in a database where you have **db_owner** privileges
 
 ### Create a database master key for column level SQL Server encryption
 
