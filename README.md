@@ -22,7 +22,7 @@ Use sys.symmetric_keys catalog view to verify the existence of this database mas
 
 ### Create a self-signed certificate for Column level SQL Server encryption
 
-`USE CustomerData;`<br/>
+**`USE CustomerData;`**<br/>
 `GO`<br/>
 `CREATE CERTIFICATE Certificate_test WITH SUBJECT = 'Protect my data';`<br/>
 `GO`<br/>
