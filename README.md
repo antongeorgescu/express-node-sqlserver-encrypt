@@ -85,9 +85,9 @@ Close the symmetric key using the CLOSE SYMMETRIC KEY statement. If we do not cl
 
 **`CLOSE SYMMETRIC KEY SymKey_test;`**
 
-### Decrypt column level SQL Server encryption data
+### Read values of encrypted columns
 
-Can be done with the following set of 2 statements:
+Can be done by running the following set of 2 statements:
 
 **`OPEN SYMMETRIC KEY SymKey_test DECRYPTION BY CERTIFICATE Certificate_test;`** <br/>
 **`GO`** <br/>
@@ -125,3 +125,6 @@ Then provide "encrypted view" privileges to [manager] role
 **`GRANT VIEW DEFINITION ON Certificate::[Certificate_test] TO manager;`** <br/>
 **`GO`** <br/>
 **`GRANT CONTROL ON Certificate::[Certificate_test] TO manager;`** <br/>
+
+### Test permissions granted
+Run the above data query for the two users (roles) created: **csr** and **manager**
