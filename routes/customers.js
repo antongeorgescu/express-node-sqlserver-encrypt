@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 const sqldb = require('mssql/msnodesqlv8');
 
-const authnroles = require('./authn');
+const authnpermissions = require('./authn');
 
 
 // config for your database
@@ -10,7 +10,7 @@ const config = {
     user: 'csr',
     password: 'reporter@1',
     server: 'STDLHVY5K13\\SQLEXPRESS', 
-    database: 'CustomerData',
+    database: 'StudentLoans',
     driver: 'msnodesqlv8',
     options: {
       trustedConnection : false
@@ -22,19 +22,19 @@ router.get('/all', function(req, res, next) {
   var sql = "SELECT borrower_id, full_name,";
   //var sql = "SELECT borrower_id, full_name,sin_encrypt AS 'Encrypted data',";
   sql += "CONVERT(varchar, DecryptByKey(sin_encrypt)) AS 'SIN#'";
-  sql += " FROM CustomerData.dbo.CustomerInfo;" 
+  sql += " FROM StudentLoans.dbo.CustomerInfo;" 
 
-  var rolename = req.header('Role');
-  if (rolename === undefined){
+  var permission = req.header('Permission');
+  if (permission === undefined){
     // user is not authenticated
-    res.status(500).json({"error":"role not provided"});
+    res.status(500).json({"error":"permission not provided"});
   }
 
-  if (!(authnroles.roles.find(x => x.role === rolename) === undefined)){
+  if (!(authnpermissions.permissions.find(x => x.permission === permission) === undefined)){
     // user in group is authorized to have access to data, but will see SIN# based on its permission
     // get user role and password and update Config settings
-    config.user = authnroles.roles.find(x => x.role === rolename).role;
-    config.password = authnroles.roles.find(x => x.role === rolename).password;
+    config.user = authnpermissions.permissions.find(x => x.permission === permission).permission;
+    config.password = authnpermissions.permissions.find(x => x.permission === permission).password;
     var pool = new sqldb.ConnectionPool(config);
     pool.connect().then(() => {
       var sqlkey = "OPEN SYMMETRIC KEY SymKey_test DECRYPTION BY CERTIFICATE Certificate_test";
@@ -60,7 +60,7 @@ router.get('/all', function(req, res, next) {
   }
   else {
       // user's provided role is not authorized to access data
-      res.status(500).json({"error":"role not authorized to query data"});
+      res.status(500).json({"error":"permission not authorized to query data"});
   }
   console.log('ending sqldb connection');
 });

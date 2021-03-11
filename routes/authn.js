@@ -1,6 +1,6 @@
-var authenticated_roles = {roles : [
-    {role: 'csr', permission: 'DataReaderNoSensitive', password: 'reporter@1'},
-    {role: 'manager', permission: 'DataReaderSensitive', password: 'contributor@1'}
+var authenticated_permissions = {permissions : [
+    {permission: 'csr', description: 'read restricted to non-sensitive information', password: 'reporter@1'},
+    {permission: 'manager', description: 'read sensitive information', password: 'contributor@1'}
 ]};
-module.exports = authenticated_roles
+module.exports = authenticated_permissions
 
