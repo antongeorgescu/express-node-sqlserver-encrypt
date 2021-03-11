@@ -7,8 +7,8 @@ const authnpermissions = require('./authn');
 
 // config for your database
 const config = {
-    user: 'csr',
-    password: 'reporter@1',
+    user: '',
+    password: '',
     server: 'STDLHVY5K13\\SQLEXPRESS', 
     database: 'StudentLoans',
     driver: 'msnodesqlv8',

@@ -117,29 +117,29 @@ A user with the read permission cannot decrypt data using the symmetric key. For
 
 **`USE [master]`** <br/>
 **`GO`** <br/>
-**`CREATE LOGIN [csr] WITH PASSWORD=N'reporter@1', DEFAULT_DATABASE=[StudentLoans], CHECK_EXPIRATION=OFF, CHECK_POLICY=OFF`** <br/>
+**`CREATE LOGIN [RestrictedAccess] WITH PASSWORD=N'reporter@1', DEFAULT_DATABASE=[StudentLoans], CHECK_EXPIRATION=OFF, CHECK_POLICY=OFF`** <br/>
 **`GO`** <br/>
-**`CREATE LOGIN [manager] WITH PASSWORD=N'contributorr@1', DEFAULT_DATABASE=[StudentLoans], CHECK_EXPIRATION=OFF, CHECK_POLICY=OFF`** <br/>
-**`GO`** <br/>
-**`USE [StudentLoans]`** <br/>
-**`GO`** <br/>
-**`CREATE USER [csr] FOR LOGIN [csr]`** <br/>
-**`GO`** <br/>
-**`CREATE USER [manager] FOR LOGIN [manager]`** <br/>
+**`CREATE LOGIN [FullAccess] WITH PASSWORD=N'contributorr@1', DEFAULT_DATABASE=[StudentLoans], CHECK_EXPIRATION=OFF, CHECK_POLICY=OFF`** <br/>
 **`GO`** <br/>
 **`USE [StudentLoans]`** <br/>
 **`GO`** <br/>
-**`ALTER ROLE [db_datareader] ADD MEMBER [csr]`** <br/>
+**`CREATE USER [RestrictedAccess] FOR LOGIN [RestrictedAccess]`** <br/>
 **`GO`** <br/>
-**`ALTER ROLE [db_datareader] ADD MEMBER [manager]`** <br/>
+**`CREATE USER [FullAccess] FOR LOGIN [FullAccess]`** <br/>
+**`GO`** <br/>
+**`USE [StudentLoans]`** <br/>
+**`GO`** <br/>
+**`ALTER ROLE [db_datareader] ADD MEMBER [RestrictedAccess]`** <br/>
+**`GO`** <br/>
+**`ALTER ROLE [db_datareader] ADD MEMBER [FullAccess]`** <br/>
 **`GO`** <br/>
 
-Then provide "encrypted view" privileges to [manager] permission
-**`GRANT VIEW DEFINITION ON SYMMETRIC KEY::SymKey_test TO manager; `** <br/>
+Then provide "encrypted view" privileges to [FullAccess] permission
+**`GRANT VIEW DEFINITION ON SYMMETRIC KEY::SymKey_test TO FullAccess; `** <br/>
 **`GO`** <br/>
-**`GRANT VIEW DEFINITION ON Certificate::[Certificate_test] TO manager;`** <br/>
+**`GRANT VIEW DEFINITION ON Certificate::[Certificate_test] TO FullAccess;`** <br/>
 **`GO`** <br/>
-**`GRANT CONTROL ON Certificate::[Certificate_test] TO manager;`** <br/>
+**`GRANT CONTROL ON Certificate::[Certificate_test] TO FullAccess;`** <br/>
 
 ### Test permissions granted
-Run the above data query for the two users (permissions) created: **csr** and **manager**
+Run the above data query for the two users (permissions) created: **RestrictedAccess** and **FullAccess**
