@@ -10,10 +10,10 @@
 
 ### Create a database master key for column level SQL Server encryption
 
-`USE CustomerData;`<br/>
-`GO`<br/>
-`CREATE MASTER KEY ENCRYPTION BY PASSWORD = 'encryption@1'`;<br/>
-`GO`<br/>
+**`USE CustomerData;`**<br/>
+**`GO`**<br/>
+**`CREATE MASTER KEY ENCRYPTION BY PASSWORD = 'encryption@1'`;**<br/>
+**`GO`**<br/>
 
 Use sys.symmetric_keys catalog view to verify the existence of this database master key in SQL Server encryption:
 
@@ -23,9 +23,9 @@ Use sys.symmetric_keys catalog view to verify the existence of this database mas
 ### Create a self-signed certificate for Column level SQL Server encryption
 
 **`USE CustomerData;`**<br/>
-`GO`<br/>
-`CREATE CERTIFICATE Certificate_test WITH SUBJECT = 'Protect my data';`<br/>
-`GO`<br/>
+**`GO`**<br/>
+**`CREATE CERTIFICATE Certificate_test WITH SUBJECT = 'Protect my data';`**<br/>
+**`GO`**<br/>
 
 Verify the certificate using the catalog view sys.certificates:
 
@@ -46,7 +46,7 @@ In the image shared above, we can see the symmetric key on top of the data. <br/
 It is recommended to use the symmetric key for data encryption since we get excellent performance in it. <br/>
 For column encryption, we use a multi-level approach, and it gives the benefit of the performance of the symmetric key and security of the asymmetric key.
 
-`CREATE SYMMETRIC KEY SymKey_test WITH ALGORITHM = AES_256 ENCRYPTION BY CERTIFICATE Certificate_test;`
+**`CREATE SYMMETRIC KEY SymKey_test WITH ALGORITHM = AES_256 ENCRYPTION BY CERTIFICATE Certificate_test;`**
 
 Check the existing keys using catalog view for column level SQL Server Encryption as checked earlier:
 
