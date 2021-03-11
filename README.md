@@ -2,6 +2,20 @@
 
 ## Design Considerations
 
+SQL Server provides the following mechanisms for encryption:
+
+* Transact-SQL functions
+* Asymmetric keys
+* **`Symmetric keys`**
+* **`Certificates`**
+* Transparent Data Encryption (TDE)
+
+This project covers the 3rd and 4th mechanisms in the list above
+
+SQL Server encrypts data with a hierarchical encryption and key management infrastructure. Each layer encrypts the layer below it by using a combination of certificates, asymmetric keys, and symmetric keys. Asymmetric keys and symmetric keys can be stored outside of SQL Server in an Extensible Key Management (EKM) module.
+
+The following illustration shows that each layer of the encryption hierarchy encrypts the layer beneath it, and displays the most common encryption configurations. The access to the start of the hierarchy is usually protected by a password.
+
 ![Sql-Server-Encryption-Combinations](https://user-images.githubusercontent.com/6631390/110805630-45341300-824f-11eb-810b-0917a2326756.gif)
 
 ## Database Encryption Configurations
