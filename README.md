@@ -93,7 +93,35 @@ Can be done with the following set of 2 statements:
 **`GO`** <br/>
 **`SELECT borrower_id, full_name,sin_encrypt AS 'Encrypted data',`** <br/>
 **`CONVERT(varchar, DecryptByKey(sin_encrypt)) AS 'Decrypted SIN#' `** <br/>
-**`FROM StudentLoans.dbo.CustomerInfo;`
+**`FROM StudentLoans.dbo.CustomerInfo;`**
 **`GO`**
 
+### Permissions required for decrypting data
 
+A user with the read permission cannot decrypt data using the symmetric key. For the current project, we will create two users (that correspond to 2 roles actually) and provide both **db_datareader** permissions on **StudentLoans** database:
+
+**`USE [master]`** <br/>
+**`GO`** <br/>
+**`CREATE LOGIN [csr] WITH PASSWORD=N'reporter@1', DEFAULT_DATABASE=[StudentLoans], CHECK_EXPIRATION=OFF, CHECK_POLICY=OFF`** <br/>
+**`GO`** <br/>
+**`CREATE LOGIN [manager] WITH PASSWORD=N'contributorr@1', DEFAULT_DATABASE=[StudentLoans], CHECK_EXPIRATION=OFF, CHECK_POLICY=OFF`** <br/>
+**`GO`** <br/>
+**`USE [StudentLoans]`** <br/>
+**`GO`** <br/>
+**`CREATE USER [**`csr] FOR LOGIN [csr]`** <br/>
+**`GO`** <br/>
+**`CREATE USER [manager] FOR LOGIN [manager]`** <br/>
+**`GO`** <br/>
+**`USE [StudentLoans]`** <br/>
+**`GO`** <br/>
+**`ALTER ROLE [db_datareader] ADD MEMBER [csr]`** <br/>
+**`GO`** <br/>
+**`ALTER ROLE [db_datareader] ADD MEMBER [manager]`** <br/>
+**`GO`** <br/>
+
+Then provide "encrypted view" privileges to [manager] role
+**`GRANT VIEW DEFINITION ON SYMMETRIC KEY::SymKey_test TO manager; `** <br/>
+**`GO`** <br/>
+**`GRANT VIEW DEFINITION ON Certificate::[Certificate_test] TO manager;`** <br/>
+**`GO`** <br/>
+**`GRANT CONTROL ON Certificate::[Certificate_test] TO manager;`** <br/>
