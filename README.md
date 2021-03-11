@@ -108,7 +108,7 @@ A user with the read permission cannot decrypt data using the symmetric key. For
 **`GO`** <br/>
 **`USE [StudentLoans]`** <br/>
 **`GO`** <br/>
-**`CREATE USER [**`csr] FOR LOGIN [csr]`** <br/>
+**`CREATE USER [csr] FOR LOGIN [csr]`** <br/>
 **`GO`** <br/>
 **`CREATE USER [manager] FOR LOGIN [manager]`** <br/>
 **`GO`** <br/>
