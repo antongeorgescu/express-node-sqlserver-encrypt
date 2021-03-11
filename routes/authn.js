@@ -1,3 +1,6 @@
-var authenticated_users = {users : ['Anton','Dorian']};
-module.exports = authenticated_users
+var authenticated_roles = {roles : [
+    {role: 'csr', permission: 'DataReaderNoSensitive', password: 'reporter@1'},
+    {role: 'manager', permission: 'DataReaderSensitive', password: 'contributor@1'}
+]};
+module.exports = authenticated_roles
 
