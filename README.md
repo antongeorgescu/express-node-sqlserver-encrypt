@@ -21,8 +21,8 @@ The following illustration shows that each layer of the encryption hierarchy enc
 ## Database Encryption Configurations
 
 ### Create CustomerData database
-For the purpose of this project we are going to create a test database, which we will call StudentLoans. There are one sql scripts in the project, under **database** folder calles **createStudentLoansDb.sql**
-Run the script in a database where you have **db_owner** privileges
+For the purpose of this project we are going to create a test database, which we will call StudentLoans. There is one creation sql script in the project, under **database** folder calles **createStudentLoansDb.sql** <br/>
+Run this script in a database where you have **db_owner** privileges
 
 ### Create a database master key for column level SQL Server encryption
 
