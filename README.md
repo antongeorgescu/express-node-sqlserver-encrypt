@@ -10,38 +10,28 @@
 
 ### Create a database master key for column level SQL Server encryption
 
-<div style="padding: 20px;border: 1px solid #4CAF50;background-color: lightgray;">
-USE CustomerData;<br/>
-GO<br/>
-CREATE MASTER KEY ENCRYPTION BY PASSWORD = 'encryption@1';<br/>
-GO<br/>
-</div>
+`USE CustomerData;`<br/>
+`GO`<br/>
+`CREATE MASTER KEY ENCRYPTION BY PASSWORD = 'encryption@1'`;<br/>
+`GO`<br/>
 
 Use sys.symmetric_keys catalog view to verify the existence of this database master key in SQL Server encryption:
 
-<div style="padding: 20px;border: 1px solid #4CAF50;">
-SELECT name KeyName,symmetric_key_id KeyID,key_length KeyLength,algorithm_desc KeyAlgorithm <br/>
-FROM sys.symmetric_keys;
-</div>
+`SELECT name KeyName,symmetric_key_id KeyID,key_length KeyLength,algorithm_desc KeyAlgorithm` <br/>
+`FROM sys.symmetric_keys;`
 
 ### Create a self-signed certificate for Column level SQL Server encryption
 
-<div style="padding: 20px;border: 1px solid #4CAF50;background-color: lightgray;">
-USE CustomerData;<br/>
-GO<br/>
-CREATE CERTIFICATE Certificate_test WITH SUBJECT = 'Protect my data';<br/>
-GO<br/>
-</div>
+`USE CustomerData;`<br/>
+`GO`<br/>
+`CREATE CERTIFICATE Certificate_test WITH SUBJECT = 'Protect my data';`<br/>
+`GO`<br/>
 
 Verify the certificate using the catalog view sys.certificates:
 
-<div style="padding: 20px;border: 1px solid #4CAF50;">
-SELECT name CertName, 
-    certificate_id CertID, 
-    pvt_key_encryption_type_desc EncryptType, 
-    issuer_name Issuer<br/>
-FROM sys.certificates;
-</div>
+`SELECT name CertName,certificate_id CertID,pvt_key_encryption_type_desc EncryptType,issuer_name Issuer`<br/>
+`FROM sys.certificates;`
+
 In the output, we can note the following fields:
 
 * **Encrypt Type**: In this column, we get a value ENCRYPTED_BY_MASTER_KEY, and it shows that SQL Server uses the database master key created in the previous step and protects this certificate
@@ -56,19 +46,12 @@ In the image shared above, we can see the symmetric key on top of the data. <br/
 It is recommended to use the symmetric key for data encryption since we get excellent performance in it. <br/>
 For column encryption, we use a multi-level approach, and it gives the benefit of the performance of the symmetric key and security of the asymmetric key.
 
-<div style="padding: 20px;border: 1px solid #4CAF50;background-color: lightgray;">
-CREATE SYMMETRIC KEY SymKey_test WITH ALGORITHM = AES_256 ENCRYPTION BY CERTIFICATE Certificate_test;
-</div>
+`CREATE SYMMETRIC KEY SymKey_test WITH ALGORITHM = AES_256 ENCRYPTION BY CERTIFICATE Certificate_test;`
 
 Check the existing keys using catalog view for column level SQL Server Encryption as checked earlier:
 
-<div style="padding: 20px;border: 1px solid #4CAF50;">
-SELECT name KeyName, 
-    symmetric_key_id KeyID, 
-    key_length KeyLength, 
-    algorithm_desc KeyAlgorithm<br/>
-FROM sys.symmetric_keys;
-</div>
+`SELECT name KeyName,symmetric_key_id KeyID,key_length KeyLength,algorithm_desc KeyAlgorithm`<br/>
+`FROM sys.symmetric_keys;`
 
 ### Summary
 So far, we have created the required encryption keys. It has the following setup that you can see in the image shown above as well:
