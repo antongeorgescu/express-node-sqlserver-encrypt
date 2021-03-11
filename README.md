@@ -4,13 +4,14 @@
 
 ![Sql-Server-Encryption-Combinations](https://user-images.githubusercontent.com/6631390/110805630-45341300-824f-11eb-810b-0917a2326756.gif)
 
-## Database Setup
+## Database Encryption Configurations
 
 ### Create CustomerData database
+For the purpose of this project we are going to create a test database, whihc we will call StudentLoans 
 
 ### Create a database master key for column level SQL Server encryption
 
-**`USE CustomerData;`**<br/>
+**`USE StudentLoans;`**<br/>
 **`GO`**<br/>
 **`CREATE MASTER KEY ENCRYPTION BY PASSWORD = 'encryption@1'`;**<br/>
 **`GO`**<br/>
@@ -22,7 +23,7 @@ Use sys.symmetric_keys catalog view to verify the existence of this database mas
 
 ### Create a self-signed certificate for Column level SQL Server encryption
 
-**`USE CustomerData;`**<br/>
+**`USE StudentLoans;`**<br/>
 **`GO`**<br/>
 **`CREATE CERTIFICATE Certificate_test WITH SUBJECT = 'Protect my data';`**<br/>
 **`GO`**<br/>
@@ -53,10 +54,46 @@ Check the existing keys using catalog view for column level SQL Server Encryptio
 `SELECT name KeyName,symmetric_key_id KeyID,key_length KeyLength,algorithm_desc KeyAlgorithm`<br/>
 `FROM sys.symmetric_keys;`
 
-### Summary
+### Setup Summary
 So far, we have created the required encryption keys. It has the following setup that you can see in the image shown above as well:
 
 * SQL Server installation creates a Service Master Key (SMK), and Windows operating system Data Protection API (DPAPI) protects this key
 * This Service Master Key (SMK) protects the database master key (DMK)
 * A database master key (DMK) protects the self-signed certificate
 * This certificate protects the Symmetric key
+
+## Database Encryption Operations
+
+### Apply Encryption to Columns
+SQL Server encrypted column datatype should be VARBINARY.
+
+**`ALTER TABLE StudentLoans.dbo.CustomerInfo`** <br/>
+**`ADD sin_encrypt varbinary(MAX)`**
+
+Encrypt the data in this newly added column.
+
+**`OPEN SYMMETRIC KEY SymKey_test DECRYPTION BY CERTIFICATE Certificate_test;`**
+
+The following update uses EncryptByKey function and uses the symmetric function for encrypting the [sin] column and updates the values in the newly created [sin_encrypt] column:
+
+**`UPDATE CustomerData.dbo.CustomerInfo`**<br/>
+**`SET BankACCNumber_encrypt = EncryptByKey (Key_GUID('SymKey_test'), BankACCNumber)`**<br/>
+**`FROM CustomerData.dbo.CustomerInfo;`** <br/>
+**`GO`**
+
+Close the symmetric key using the CLOSE SYMMETRIC KEY statement. If we do not close the key, it remains open until the session is terminated
+
+**`CLOSE SYMMETRIC KEY SymKey_test;`**
+
+### Decrypt column level SQL Server encryption data
+
+Can be done with the following set of 2 statements:
+
+**`OPEN SYMMETRIC KEY SymKey_test DECRYPTION BY CERTIFICATE Certificate_test;`** <br/>
+**`GO`** <br/>
+**`SELECT borrower_id, full_name,sin_encrypt AS 'Encrypted data',`** <br/>
+**`CONVERT(varchar, DecryptByKey(sin_encrypt)) AS 'Decrypted SIN#' `** <br/>
+**`FROM StudentLoans.dbo.CustomerInfo;`
+**`GO`**
+
+
