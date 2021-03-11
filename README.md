@@ -113,7 +113,7 @@ Can be done by running the following set of 2 statements:
 
 ### Permissions required for decrypting data
 
-A user with the read permission cannot decrypt data using the symmetric key. For the current project, we will create two users (that correspond to 2 roles actually) and provide both **db_datareader** permissions on **StudentLoans** database:
+A user with the read permission cannot decrypt data using the symmetric key. For the current project, we will create two users (that correspond to 2 permissions actually) and provide both **db_datareader** permissions on **StudentLoans** database:
 
 **`USE [master]`** <br/>
 **`GO`** <br/>
@@ -134,7 +134,7 @@ A user with the read permission cannot decrypt data using the symmetric key. For
 **`ALTER ROLE [db_datareader] ADD MEMBER [manager]`** <br/>
 **`GO`** <br/>
 
-Then provide "encrypted view" privileges to [manager] role
+Then provide "encrypted view" privileges to [manager] permission
 **`GRANT VIEW DEFINITION ON SYMMETRIC KEY::SymKey_test TO manager; `** <br/>
 **`GO`** <br/>
 **`GRANT VIEW DEFINITION ON Certificate::[Certificate_test] TO manager;`** <br/>
@@ -142,4 +142,4 @@ Then provide "encrypted view" privileges to [manager] role
 **`GRANT CONTROL ON Certificate::[Certificate_test] TO manager;`** <br/>
 
 ### Test permissions granted
-Run the above data query for the two users (roles) created: **csr** and **manager**
+Run the above data query for the two users (permissions) created: **csr** and **manager**
