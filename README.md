@@ -1,4 +1,4 @@
-# Sql Server Data Encryption @ Field Level
+# Sql Server Data Encryption Methods
 
 ## Design Considerations
 
