@@ -143,3 +143,6 @@ Then provide "encrypted view" privileges to [FullAccess] permission
 
 ### Test permissions granted
 Run the above data query for the two users (permissions) created: **RestrictedAccess** and **FullAccess**
+
+## Credits
+![SQLShack: An overview of the column level SQL Server encryption](https://www.sqlshack.com/an-overview-of-the-column-level-sql-server-encryption/)
