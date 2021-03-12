@@ -30,11 +30,11 @@ router.get('/all', function(req, res, next) {
     res.status(500).json({"error":"permission not provided"});
   }
 
-  if (!(activedirectory.authn_permissions.permissions.find(x => x.permission === permission) === undefined)){
+  if (!(activedirectory.permissions.find(x => x.permission === permission) === undefined)){
     // user in group is authorized to have access to data, but will see SIN# based on its permission
     // get user role and password and update Config settings
-    config.user = activedirectory.authn_permissions.permissions.find(x => x.permission === permission).permission;
-    config.password = activedirectory.authn_permissions.permissions.find(x => x.permission === permission).password;
+    config.user = activedirectory.permissions.find(x => x.permission === permission).permission;
+    config.password = activedirectory.permissions.find(x => x.permission === permission).password;
     var pool = new sqldb.ConnectionPool(config);
     pool.connect().then(() => {
       var sqlkey = "OPEN SYMMETRIC KEY SymKey_test DECRYPTION BY CERTIFICATE Certificate_test";
