@@ -13,6 +13,8 @@ block layout-content
       hr  
       a(href=`/api/customers/all/${userInfo.email}`)
         div.NavButton Get list of students...
+      p Result:
+    hr
     p OAuth2 Token: #{JSON.stringify(userInfo)}
     p User email: #{userInfo.email}
     
