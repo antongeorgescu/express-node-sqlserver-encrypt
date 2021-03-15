@@ -1,0 +1,17 @@
+extends layout
+
+block layout-content
+  div.View
+    h2.Banner Example of Data Encryption Method
+    div.Message
+      div.Title
+        h3 Encrypt Sql Server Column
+        h4.Details Access StudentLoans database
+    div.NavButtons
+      a(href = url)
+        button(type="button") #{buttonSpan}
+      hr  
+      a(href="/api/customers/all")
+        div.NavButton Get list of students...
+    p #{JSON.stringify(userInfo)}
+      

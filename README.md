@@ -146,3 +146,5 @@ Run the above data query for the two users (permissions) created: **RestrictedAc
 
 ## Credits
 [SQLShack: An overview of the column level SQL Server encryption](https://www.sqlshack.com/an-overview-of-the-column-level-sql-server-encryption/)
+[Google Workspace - Directory API - Manage Entities](https://developers.google.com/admin-sdk/directory/v1/guides/manage-groups)
+[Google Workspace - Directory API - REST Resources](https://developers.google.com/admin-sdk/directory/reference/rest/v1/customers/update)

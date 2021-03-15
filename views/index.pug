@@ -1,0 +1,15 @@
+extends layout
+
+block layout-content
+  div.View
+    h2.Banner User Authentication
+    div.Message
+      div.Title
+        h3 Use Google Authentication API
+        h4.Details More details under Google Console
+    div.NavButtons
+      //- a(href="/user")
+      //-   div.NavButton Just dive in!
+      a(href = url)
+        button(type="button") #{buttonSpan}
+      //- p #{JSON.stringify(userInfo)}
