@@ -66,7 +66,7 @@ app.get('/logout', (req, res) => {
 });
 
 app.use('/api', indexRouter);
-app.use('/api/customers', customersRouter);
+app.use('/api/customers/', customersRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

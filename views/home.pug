@@ -11,7 +11,9 @@ block layout-content
       a(href = url)
         button(type="button") #{buttonSpan}
       hr  
-      a(href="/api/customers/all")
+      a(href=`/api/customers/all/${userInfo.email}`)
         div.NavButton Get list of students...
-    p #{JSON.stringify(userInfo)}
-      
+    p OAuth2 Token: #{JSON.stringify(userInfo)}
+    p User email: #{userInfo.email}
+    
+    

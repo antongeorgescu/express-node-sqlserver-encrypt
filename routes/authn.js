@@ -24,15 +24,24 @@ const tenants = [
     {tenant : 'CPTLoan', description : 'College part-time loans'},
 ]
 
+const profiles = [
+    {user : 'Anton', email:'antongeorgescu@gmail.com'},
+    {user : 'Daniela', email:''},
+    {user : 'Alex', email:''},
+    {user : 'Kora', email:''},
+    {user : 'Jake', email:''},
+    {user : 'Alvianda', email:'alvianda@gmail.com'}
+]
+
 const users = [
-    {user : 'Anton', group : 'Supervisors', role : '', org: 'UGuelph, UWaterloo', tenant : 'UFTLoan', permission : ''},
+    {user : 'Jake', group : 'Supervisors', role : '', org: 'UGuelph, UWaterloo', tenant : 'UFTLoan', permission : ''},
     {user : 'Daniela', group : 'Supervisors', role : '', org: 'CSheridan', tenant : 'CPTLoan', permission : ''},
     {user : 'Alex', group : 'Agents', role : 'Contributor', org: 'UGuelph', tenant : 'UFTLoan', permission : 'FullAccess'},
     {user : 'Kora', group : 'Agents', role : 'Reporter', org: 'UWaterloo', tenant : 'UFTLoan', permission : 'RestrictedAccess'},
-    {user : 'Jake', group : 'Agents', role : 'Reporter', org: 'CSheridan', tenant : 'CPTLoan', permission : 'RestrictedAccess'},
-    {user : 'Tangie', group : 'Agents', role : 'Contributor', org: 'CSheridan', tenant : 'CPTLoan', permission : 'FullAccess'},
+    {user : 'Anton', group : 'Agents', role : 'Reporter', org: 'CSheridan', tenant : 'CPTLoan', permission : 'RestrictedAccess'},
+    {user : 'Alvianda', group : 'Agents', role : 'Contributor', org: 'CSheridan', tenant : 'CPTLoan', permission : 'FullAccess'},
 ]
 
 
-module.exports = {permissions, users}
+module.exports = {profiles, users,permissions}
 

@@ -18,13 +18,24 @@ const config = {
 };
     
 /* GET customers listing. */
-router.get('/all', function(req, res, next) {
+router.get('/all/:email', function(req, res, next) {
+
   var sql = "SELECT borrower_id, full_name,";
   //var sql = "SELECT borrower_id, full_name,sin_encrypt AS 'Encrypted data',";
   sql += "CONVERT(varchar, DecryptByKey(sin_encrypt)) AS 'SIN#'";
   sql += " FROM StudentLoans.dbo.CustomerInfo;" 
 
-  var permission = req.header('Permission');
+  var userEmail = req.params.email;
+  if (userEmail === undefined){
+    // user is not authenticated
+    res.status(500).json({"error":"user not authenticated"});
+  }
+
+  // get User and its Permission from directory
+  var selectedUser = activedirectory.profiles.find(x => x.email === userEmail).user;
+  var permission = activedirectory.users.find(x => x.user === selectedUser).permission;
+
+  //var permission = req.header('Permission');
   if (permission === undefined){
     // user is not authenticated
     res.status(500).json({"error":"permission not provided"});
@@ -40,6 +51,7 @@ router.get('/all', function(req, res, next) {
       var sqlkey = "OPEN SYMMETRIC KEY SymKey_test DECRYPTION BY CERTIFICATE Certificate_test";
       pool.request().query(sqlkey,(err) => {
         if (err){
+          //res.status(500).json({"error":err.message});
           res.status(500).json({"error":err.message});
           sqldb.close()
         }
