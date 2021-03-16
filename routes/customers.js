@@ -32,8 +32,12 @@ router.get('/all/:email', function(req, res, next) {
   }
 
   // get User and its Permission from directory
-  var selectedUser = activedirectory.profiles.find(x => x.email === userEmail).user;
-  var permission = activedirectory.users.find(x => x.user === selectedUser).permission;
+  var selectedEntry = activedirectory.profiles.find(x => x.email === userEmail);
+  if (selectedEntry === undefined){
+    res.status(500).json({"error":"user not accepted"});
+  };
+  
+  var permission = activedirectory.users.find(x => x.user === selectedEntry.user).permission;
 
   //var permission = req.header('Permission');
   if (permission === undefined){
@@ -51,7 +55,6 @@ router.get('/all/:email', function(req, res, next) {
       var sqlkey = "OPEN SYMMETRIC KEY SymKey_test DECRYPTION BY CERTIFICATE Certificate_test";
       pool.request().query(sqlkey,(err) => {
         if (err){
-          //res.status(500).json({"error":err.message});
           res.status(500).json({"error":err.message});
           sqldb.close()
         }
