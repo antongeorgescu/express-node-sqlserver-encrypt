@@ -28,21 +28,53 @@ router.get('/all/:email', function(req, res, next) {
   var userEmail = req.params.email;
   if (userEmail === undefined){
     // user is not authenticated
-    res.status(500).json({"error":"user not authenticated"});
+    res.status(500).json({response : {error:"user not authenticated"}});
   }
 
   // get User and its Permission from directory
   var selectedEntry = activedirectory.profiles.find(x => x.email === userEmail);
   if (selectedEntry === undefined){
-    res.status(500).json({"error":"user not accepted"});
+    // res.status(500).json({response : {error:"user not accepted"}});
+    res.status(500).json(
+      {
+        response : {
+          error:"user not accepted",
+          user: {
+            email: '',
+            group: '',
+            role : '',
+            org : '',
+            tenant: '',
+            permission : ''
+          }
+        }
+      });
   };
   
+  var userGroup = activedirectory.users.find(x => x.user === selectedEntry.user).group;
+  var userRole = activedirectory.users.find(x => x.user === selectedEntry.user).role;
+  var userOrg = activedirectory.users.find(x => x.user === selectedEntry.user).org;
+  var userTenant = activedirectory.users.find(x => x.user === selectedEntry.user).tenant;
   var permission = activedirectory.users.find(x => x.user === selectedEntry.user).permission;
 
   //var permission = req.header('Permission');
-  if (permission === undefined){
+  if (permission === undefined)
+  {
     // user is not authenticated
-    res.status(500).json({"error":"permission not provided"});
+    res.status(500).json(
+    {
+      response : {
+        error:"permission not provided",
+        user: {
+          email: userEmail,
+          group: userGroup,
+          role : userRole,
+          org : userOrg,
+          tenant: userTenant,
+          permission : ''
+        }
+      }
+    });
   }
 
   if (!(activedirectory.permissions.find(x => x.permission === permission) === undefined)){
@@ -55,17 +87,59 @@ router.get('/all/:email', function(req, res, next) {
       var sqlkey = "OPEN SYMMETRIC KEY SymKey_test DECRYPTION BY CERTIFICATE Certificate_test";
       pool.request().query(sqlkey,(err) => {
         if (err){
-          res.status(500).json({"error":err.message});
+          //res.status(500).json({response: {error:err.message}});
+          res.status(500).json(
+            {
+              response : {
+                error:err.message,
+                user: {
+                  email: userEmail,
+                  group: userGroup,
+                  role : userRole,
+                  org : userOrg,
+                  tenant: userTenant,
+                  permission : permission
+                }
+              }
+            });
           sqldb.close()
         }
         else {
           pool.request().query(sql,(err,result) => {
             if (err) 
-              res.status(500).json({"error":err});
+              //res.status(500).json({response: {error:err}});
+              res.status(500).json(
+                {
+                  response : {
+                    error:err,
+                    user: {
+                      email: userEmail,
+                      group: userGroup,
+                      role : userRole,
+                      org : userOrg,
+                      tenant: userTenant,
+                      permission : permission
+                    }
+                  }
+                });
             else {
-              return res.json({
-                data : result.recordset
-              })
+              // return res.json({
+              //   response : {data : result.recordset}
+              // })
+              res.status(200).json(
+                {
+                  response : {
+                    data: result.recordset,
+                    user: {
+                      email: userEmail,
+                      group: userGroup,
+                      role : userRole,
+                      org : userOrg,
+                      tenant: userTenant,
+                      permission : permission
+                    }
+                  }
+                });
             }
             sqldb.close()
           });
@@ -75,7 +149,21 @@ router.get('/all/:email', function(req, res, next) {
   }
   else {
       // user's provided role is not authorized to access data
-      res.status(500).json({"error":"permission not authorized to query data"});
+      //res.status(500).json({response: {error:"permission not authorized to query data"}});
+      res.status(500).json(
+        {
+          response : {
+            error: "permission not authorized to query data",
+            user: {
+              email: userEmail,
+              group: userGroup,
+              role : userRole,
+              org : userOrg,
+              tenant: userTenant,
+              permission : permission
+            }
+          }
+        });
   }
   console.log('ending sqldb connection');
 });

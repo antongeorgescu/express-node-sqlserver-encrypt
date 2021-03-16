@@ -9,12 +9,15 @@ block layout-content
         url: `/api/customers/all/${userEmail}`, 
         async:false,
         success: function(result){
-          $("#div1").html(JSON.stringify(result.data));
-          console.log(JSON.stringify(result.data));
+          console.log(result.response.data);
+          $("#div1").html(JSON.stringify(result.response.data));
+          $("#div2").html(JSON.stringify(result.response.user));
+          
         },
         error: function(result){
-          console.log(JSON.stringify(result.responseJSON));
-          $("#div1").html(JSON.stringify(result.responseJSON));
+          console.log(result.responseJSON.response.error);
+          $("#div1").html(result.responseJSON.response.error);
+          $("#div2").html(JSON.stringify(result.responseJSON.response.user));
         }
       });
     }
@@ -31,9 +34,12 @@ block layout-content
       button(onclick=`getStudentList('${userInfo.email}')`) Get list of students
       p Result:
       #div1
-        h3 Let jQuery AJAX Change This Text
+        h3 ...
     hr
-    p OAuth2 Token: #{JSON.stringify(userInfo)}
-    p User email: #{userInfo.email}
+    p OAuth2 Token: 
+    p #{JSON.stringify(userInfo)}
+    p User Profile:
+    #div2 
+      h4 ...
     
     
