@@ -144,7 +144,19 @@ Then provide "encrypted view" privileges to [FullAccess] permission
 ### Test permissions granted
 Run the above data query for the two users (permissions) created: **RestrictedAccess** and **FullAccess**
 
+## Express with NodeJs and PUG Templates
+This implementation mocks an authenticated user getting access to encrypted data
+
+### Use Google Workspace Directory
+We are using an OAuth2 authentication based on a Google Workspace Directory structure, as in the following picture
+
+![Google Workspace Directory](https://user-images.githubusercontent.com/6631390/111304922-b9463080-862c-11eb-9a10-e0911df20439.png)
+
+Note: for the purpose of the current Github implementation, we replaced the above authentication with a free user authentication combined with a local structure of objects that reflect the real Google Workspace Directory structure
+
+
 ## Credits
 [SQLShack: An overview of the column level SQL Server encryption](https://www.sqlshack.com/an-overview-of-the-column-level-sql-server-encryption/)
 [Google Workspace - Directory API - Manage Entities](https://developers.google.com/admin-sdk/directory/v1/guides/manage-groups)
 [Google Workspace - Directory API - REST Resources](https://developers.google.com/admin-sdk/directory/reference/rest/v1/customers/update)
+[Google Workspace - Directory](https://developers.google.com/admin-sdk/directory)
