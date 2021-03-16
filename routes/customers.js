@@ -91,7 +91,7 @@ router.get('/all/:email', function(req, res, next) {
           res.status(500).json(
             {
               response : {
-                error:err.message,
+                error:`Error: ${err.message} * Running Query: ${sql}`,
                 user: {
                   email: userEmail,
                   group: userGroup,
