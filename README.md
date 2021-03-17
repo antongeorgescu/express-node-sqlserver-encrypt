@@ -148,12 +148,22 @@ Run the above data query for the two users (permissions) created: **RestrictedAc
 This implementation mocks an authenticated user getting access to encrypted data
 
 ### Use Google Workspace Directory
-We are using an OAuth2 authentication based on a Google Workspace Directory structure, as in the following picture
+This model is a combo og Google Workspace Directory and custom _security objects_. We are using an OAuth2 authentication based on a Google Workspace Directory structure, as in the following picture
 
-![Google Workspace Directory](https://user-images.githubusercontent.com/6631390/111305715-ab44df80-862d-11eb-8c2b-2383720b80c7.png)
+![Google Workspace Directory](https://user-images.githubusercontent.com/6631390/111457541-b1e75b80-86ee-11eb-88b7-e47b615fd5e5.png)
 
-Note: for the purpose of the current Github implementation, we replaced the above authentication with a free user authentication combined with a local structure of objects that reflect the real Google Workspace Directory structure
+:information_source: Note: for the purpose of the current Github implementation, we replaced the above authentication with a free user authentication combined with a local structure of objects that reflect the real Google Workspace Directory structure
 
+### Use Azure Active Directory
+The following security model is based on a combo of Azure AD and custom _security objects_. The native authentication is using Open ID Connect built on top of OAuth2 protocol.
+
+The following two diagras show the conceptual security model and a concrete exemplification:
+
+![Azure AD Centric Security Model](https://user-images.githubusercontent.com/6631390/111457258-57e69600-86ee-11eb-9101-2e133814c54e.png)
+
+<br/>
+
+![Azure AD Centric Security Model - Example](https://user-images.githubusercontent.com/6631390/111457323-6c2a9300-86ee-11eb-9714-7c7baaea4cc6.PNG)
 
 ## Credits
 * [SQLShack: An overview of the column level SQL Server encryption](https://www.sqlshack.com/an-overview-of-the-column-level-sql-server-encryption/)
