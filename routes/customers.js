@@ -22,7 +22,7 @@ router.get('/all/:email', function(req, res, next) {
 
   var sql = "SELECT borrower_id, full_name,";
   //var sql = "SELECT borrower_id, full_name,sin_encrypt AS 'Encrypted data',";
-  sql += "CONVERT(varchar, DecryptByKey(sin_encrypt)) AS 'SIN#'";
+  sql += "CONVERT(varchar, DecryptByKey(sin_encrypt)) AS 'sin'";
   sql += " FROM StudentLoans.dbo.CustomerInfo;" 
 
   var userEmail = req.params.email;

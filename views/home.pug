@@ -2,6 +2,7 @@ extends layout
 
 block layout-content
   script.
+    var resultSet = null;
     function getStudentList(userEmail){
       //- e.preventDefault();
       console.log(`/api/customers/all/${userEmail}`);
@@ -10,8 +11,14 @@ block layout-content
         async:false,
         success: function(result){
           console.log(result.response.data);
+          resultSet = result.response.data;
           $("#div1").html(JSON.stringify(result.response.data));
           $("#div2").html(JSON.stringify(result.response.user));
+          listentries = "";
+          $.each(result.response.data,function(index,data){
+            listentries += `<li>[borrowerid:${data.borrower_id}] * [name:${data.full_name}] * [sin#:${data.sin}]</li>`;   
+          })
+          $("#liststudents").append(listentries);
           
         },
         error: function(result){
@@ -32,13 +39,15 @@ block layout-content
         button(type="button") #{buttonSpan}
       hr  
       button(onclick=`getStudentList('${userInfo.email}')`) Get list of students
-      p Result:
+      p <b>Result (JSON):</b>
       #div1
         h3 ...
+      p <b>Result (Rendered rows):</b>
+      ul(id='liststudents')
     hr
-    p OAuth2 Token: 
+    p <b>OAuth2 Token: </b>
     p #{JSON.stringify(userInfo)}
-    p User Profile:
+    p <b>User Profile: </b>
     #div2 
       h4 ...
     
