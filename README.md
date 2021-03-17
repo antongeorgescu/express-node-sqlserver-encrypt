@@ -165,6 +165,20 @@ The following two diagras show the conceptual security model and a concrete exem
 
 ![Azure AD Centric Security Model - Example](https://user-images.githubusercontent.com/6631390/111457323-6c2a9300-86ee-11eb-9714-7c7baaea4cc6.PNG)
 
+## Student-Loans Database Schema
+The following ERD shows the schema for the sample database used in this project.
+
+![StudentLoans-Database-Schema](https://user-images.githubusercontent.com/6631390/111547092-08848200-874f-11eb-9cd7-1bd23af381ff.PNG)
+
+## Secure Data Call to Sql Server Database
+The following diagram illustrates the 3 layers of security that a Sql Server data call is supposed to go through:
+
+1. access control through "connection string" and least privileged logins
+2. transparent database encryption (TDE) applied to the whole Sql Server database for both data-in-transit and data-at-rest
+3. column level encryption with symmetric/assymmetric keys stored in "database key vault"
+
+![Secure data call to Sql Server](https://user-images.githubusercontent.com/6631390/111546996-e4c13c00-874e-11eb-9011-f9343a3fdbaa.PNG)
+
 ## Credits
 * [SQLShack: An overview of the column level SQL Server encryption](https://www.sqlshack.com/an-overview-of-the-column-level-sql-server-encryption/)
 * [Google Workspace - Directory API - Manage Entities](https://developers.google.com/admin-sdk/directory/v1/guides/manage-groups)
