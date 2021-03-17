@@ -14,11 +14,13 @@ block layout-content
           resultSet = result.response.data;
           $("#div1").html(JSON.stringify(result.response.data));
           $("#div2").html(JSON.stringify(result.response.user));
-          listentries = "";
+          tableentries = "";
           $.each(result.response.data,function(index,data){
-            listentries += `<li>[borrowerid:${data.borrower_id}] * [name:${data.full_name}] * [sin#:${data.sin}]</li>`;   
+            tableentries += `<tr><td>${data.borrower_id}</td><td>${data.full_name}</td><td>${data.sin}</td>`;  
+            tableentries += `<td>${data.amount}</td><td>${data.ei}</td><td>${data.loantype}</td><td>${data.due_date}</td></tr>`;       
           })
-          $("#liststudents").append(listentries);
+          $("#tablestudents").append("<th><td><b>Borrower ID</b></td><td><b>Full Name</b></td><td><b>Amount ($)</b></td><td><b>Education Unit</b></td><td><b>Loan Type</b></td><td><b>Maturity Date</b></td></th>");
+          $("#tablestudents").append(tableentries);
           
         },
         error: function(result){
@@ -44,6 +46,7 @@ block layout-content
         h3 ...
       p <b>Result (Rendered rows):</b>
       ul(id='liststudents')
+      table(id='tablestudents',border="1px")
     hr
     p <b>OAuth2 Token: </b>
     p #{JSON.stringify(userInfo)}

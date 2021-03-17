@@ -17,11 +17,12 @@ const organizations = [
     {organization : 'UGuelph', description : 'University of Guelph, Guelph, Ontario'},
     {organization : 'UWaterloo', description : 'Waterloo University, Waterloo, Ontario'},
     {organization : 'CSheridan', description : 'Sheridan College, Oakville, Ontario'},
+    {organization : 'NSLSC', description : 'National Student Loans Service Centre'}
 ]
 
 const tenants = [
-    {tenant : 'UFTLoan', description : 'University full-time Loans'},
-    {tenant : 'CPTLoan', description : 'College part-time loans'},
+    {tenant : 'FedUniFT', description : 'Federal university full-time Loans'},
+    {tenant : 'ProvColPT', description : 'Provincial college part-time loans'},
 ]
 
 const profiles = [
@@ -34,12 +35,12 @@ const profiles = [
 ]
 
 const users = [
-    {user : 'Jake', group : 'Supervisors', role : '', org: 'UGuelph, UWaterloo', tenant : 'UFTLoan', permission : ''},
-    {user : 'Daniela', group : 'Supervisors', role : '', org: 'CSheridan', tenant : 'CPTLoan', permission : ''},
-    {user : 'Alex', group : 'Agents', role : 'Contributor', org: 'UGuelph', tenant : 'UFTLoan', permission : 'FullAccess'},
-    {user : 'Kora', group : 'Agents', role : 'Reporter', org: 'UWaterloo', tenant : 'UFTLoan', permission : 'RestrictedAccess'},
-    {user : 'Anton', group : 'Agents', role : 'Reporter', org: 'CSheridan', tenant : 'CPTLoan', permission : 'RestrictedAccess'},
-    {user : 'Alvianda', group : 'Agents', role : 'Contributor', org: 'CSheridan', tenant : 'CPTLoan', permission : 'FullAccess'},
+    {user : 'Jake', group : 'Supervisors', role : '', org: 'UGuelph', tenant : 'FedUniFT', permission : ''},
+    {user : 'Daniela', group : 'Supervisors', role : '', org: 'CSheridan', tenant : 'ProvColPT', permission : ''},
+    {user : 'Alex', group : 'Agents', role : 'Contributor', org: 'UGuelph', tenant : 'FedUniFT', permission : 'FullAccess'},
+    {user : 'Kora', group : 'Agents', role : 'Reporter', org: 'UWaterloo', tenant : 'FedUniFT', permission : 'RestrictedAccess'},
+    {user : 'Anton', group : 'Agents', role : 'Reporter', org: 'UGuelph', tenant : 'FedUniFT', permission : 'RestrictedAccess'},
+    {user : 'Alvianda', group : 'Agents', role : 'Contributor', org: 'CSheridan', tenant : 'ProvColPT', permission : 'FullAccess'},
 ]
 
 

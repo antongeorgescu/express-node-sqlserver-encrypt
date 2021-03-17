@@ -25,6 +25,15 @@ router.get('/all/:email', function(req, res, next) {
   sql += "CONVERT(varchar, DecryptByKey(sin_encrypt)) AS 'sin'";
   sql += " FROM StudentLoans.dbo.CustomerInfo;" 
 
+  var sql = "SELECT ci.borrower_id, ci.full_name,CONVERT(varchar, DecryptByKey(ci.sin_encrypt)) AS 'sin',"
+	sql += "l.amount,l.due_date,o.description as ei,t.description as loantype "
+  sql += "FROM StudentLoans.dbo.CustomerInfo ci "
+  sql += "JOIN StudentLoans.dbo.CustomerLoan cl ON ci.borrower_id = cl.borrower_id "
+  sql += "JOIN StudentLoans.dbo.Loan l ON cl.loan_id = l.loan_id "
+  sql += "JOIN StudentLoans.dbo.Organization o ON l.org_id = o.org_id "
+  sql += "JOIN StudentLoans.dbo.Tenant T ON l.tenant_id = t.tenant_id ";
+  //sql += "WHERE o.name = 'CSheridan' and t.name = 'ProvColPT'"
+
   var userEmail = req.params.email;
   if (userEmail === undefined){
     // user is not authenticated
@@ -105,6 +114,7 @@ router.get('/all/:email', function(req, res, next) {
           sqldb.close()
         }
         else {
+          sql += `WHERE o.name = '${userOrg}' and t.name = '${userTenant}'`
           pool.request().query(sql,(err,result) => {
             if (err) 
               //res.status(500).json({response: {error:err}});
