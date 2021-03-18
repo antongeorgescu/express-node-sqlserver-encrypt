@@ -25,7 +25,10 @@ block layout-content
         },
         error: function(result){
           console.log(result.responseJSON.response.error);
-          $("#div1").html(result.responseJSON.response.error);
+          var errmsg = result.responseJSON.response.error.replace(" * ","<br/>");
+          errmsg = errmsg.replace("Running Query:","<b>Running Query</b>:");
+          errmsg = errmsg.replace("Error:","<b>Error</b>:");
+          $("#div1").html(errmsg);
           $("#div2").html(JSON.stringify(result.responseJSON.response.user));
         }
       });
@@ -45,7 +48,6 @@ block layout-content
       #div1
         h3 ...
       p <b>Result (Rendered rows):</b>
-      ul(id='liststudents')
       table(id='tablestudents',border="1px")
     hr
     p <b>OAuth2 Token: </b>
