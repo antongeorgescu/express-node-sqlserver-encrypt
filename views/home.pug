@@ -19,7 +19,7 @@ block layout-content
             tableentries += `<tr><td>${data.borrower_id}</td><td>${data.full_name}</td><td>${data.sin}</td>`;  
             tableentries += `<td>${data.amount}</td><td>${data.ei}</td><td>${data.loantype}</td><td>${data.due_date}</td></tr>`;       
           })
-          $("#tablestudents").append("<th><td><b>Borrower ID</b></td><td><b>Full Name</b></td><td><b>Amount ($)</b></td><td><b>Education Unit</b></td><td><b>Loan Type</b></td><td><b>Maturity Date</b></td></th>");
+          $("#tablestudents").append("<tr><td><b>Borrower ID</b></td><td><b>Full Name</b></td><td><b>SIN#</b></td><td><b>Amount ($)</b></td><td><b>Education Unit</b></td><td><b>Loan Type</b></td><td><b>Maturity Date</b></td></tr>");
           $("#tablestudents").append(tableentries);
           
         },

@@ -92,7 +92,7 @@ Encrypt the data in this newly added column.
 The following update uses EncryptByKey function and uses the symmetric function for encrypting the [sin] column and updates the values in the newly created [sin_encrypt] column:
 
 **`UPDATE CustomerData.dbo.CustomerInfo`**<br/>
-**`SET BankACCNumber_encrypt = EncryptByKey (Key_GUID('SymKey_test'), BankACCNumber)`**<br/>
+**`SET sin_encrypt = EncryptByKey (Key_GUID('SymKey_test'), sin)`**<br/>
 **`FROM CustomerData.dbo.CustomerInfo;`** <br/>
 **`GO`**
 
